@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css')}}">
+    <title>Coffe's Login</title>
+</head>
+<body>
+
+      {% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+  {% for category, message in messages %}
+      <p class="flash-{{ category }}">{{ message }}</p>
+    {% endfor %}
+  {% endif %}
+{% endwith %}
+
+    <main class="container">
+        <form id="loginForm" action="/login" method="post">
+            <div class="header-logo">
+                <h1>Login Coffe's</h1>
+                <img class="logo" src="{{ url_for('static', filename='img/logo.png')}}">
+            </div>
+            <div class="input-box">
+                <input placeholder="Usuário" type="email" name="email" id="usernameInput">
+                <i class="bx bxs-user"></i>
+            </div>
+
+            <div class="input-box">
+                <input placeholder="Senha" type="password" name="password" id="passwordInput">
+                <i class="bx bxs-lock-alt"></i>
+            </div>
+
+            <div class="remember-forgot">
+                <label>
+                <input type="checkbox">
+                    Lembrar senha
+                </label>
+                <a href="#">Esqueci a senha</a>
+            </div>
+
+            <button type="submit" class="login">Login</button>
+
+            <div class="register-link">
+                <p>Não tem uma conta? <a href="{{ url_for('cadastro_form') }}">Cadastre-se</a></p>
+            </div>
+        </form>
+    </main>
+
+    <script>
+        document.getElementById('loginForm').addEventListener('submit', function(event) {
+            const usernameInput = document.getElementById('usernameInput');
+            const passwordInput = document.getElementById('passwordInput');
+
+            if (usernameInput.value.trim() === '') {
+                event.preventDefault();
+                alert('Por favor, insira seu nome de usuário.');
+                usernameInput.focus();
+                return;
+            }
+
+            if (passwordInput.value.trim() === '') {
+                event.preventDefault();
+                alert('Por favor, insira sua senha.');
+                passwordInput.focus();
+                return;
+            }
+        });
+    </script>
+</body>
+</html>
